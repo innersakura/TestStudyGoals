@@ -1,0 +1,20 @@
+1、下载pip【python的安装包管理工具】
+https://pypi.python.org/pypi/pip
+2、安装pip，将下载好的pip文件解压，打开终端，cd至该目录，执行sudo python setup.py install
+3、执行sudo easy_install pip 
+为什么手工下载安装库后，还要用easy_install再次安装呢？
+可能的原因：easy_install能够自动下载安装依赖包，运行这句语句后，提示：Processing dependencies for pip，Finished processing dependencies for pip
+4、联网执行 sudo pip install -U selenium
+（如果做完此步直接写一个脚本打开浏览器，会提示需要添加环境变量'SELENIUM_SERVER_JAR'）
+5、下载jdk for mac
+6、下载selenium的最新服务器端 selenium-server-standalone-2.48.2.jar
+http://selenium-release.storage.googleapis.com/index.html
+（下载并解压，在jar目录下使用命令 java -jar selenium-server-standalone-xxx.jar启动）
+7、配置环境变量
+输入export SELENIUM_SERVER_JAR=JAR文件所在的完整路径（包含到xx.jar,可直接将文件拖动到终端）
+8、下载safaridriver
+下载安装SafariDriver.safariextz，在safari中会弹框安装扩展
+http://selenium-release.storage.googleapis.com/index.html
+
+===
+完成，可以写脚本启动safari了。
