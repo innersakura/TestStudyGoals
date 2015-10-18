@@ -1,0 +1,19 @@
+﻿乙醇-webdriver指南学习记录
+
+学习地址：
+https://github.com/easonhan007/webdriver_guide
+
+00-安装环境
+安装active-python（应该是已集成了常用的包）：
+http://www.activestate.com/activepython/
+再安装selenium webdriver：
+pip install selenium
+
+01-打开浏览器
+dr = webdriver.Chrome()
+
+02-关闭浏览器
+dr = webdriver.Chrome()
+(1)dr.close() ——关闭当前的浏览器窗口，如果运行中打开了多个窗口其他窗口会保留（实验如果只开了一个窗口，浏览器会关闭，但Chromedriver窗口还在）
+(2)dr.quit() ——关闭窗口，并且彻底退出webdriver，释放与driver server之间的连接。（实验Chromedriver窗口也会关闭）
+
