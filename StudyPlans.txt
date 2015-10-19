@@ -15,6 +15,7 @@ python 单元测试框架：
 http://www.ibm.com/developerworks/cn/linux/l-pyunit/index.html
 乙醇webdriver 实用指南（python 版）
 https://github.com/easonhan007/webdriver_guide】
+3、python系统学习
 
 注意点：
 1、不要闭门造车，多百度google原理和其他大公司怎样运用的

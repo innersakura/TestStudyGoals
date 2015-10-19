@@ -1,0 +1,87 @@
+一、配置selenium server
+为了运行远程webdriver，运行脚本之前先需要下载Selenium Standalone Server：http://www.seleniumhq.org/download/ （selenium server运行依赖java环境，先保证已安装配置JDK）
+并且启动selenium server：java -jar selenium-server-standalone-XXX.jar
+PS：selenium1是本身就运行与selenium server之上的，而selenium2默认本地运行测试时是不需要selenium server的，而需要在本地调用远程的环境来执行测试时需要用到selenium-server，
+selenium-server支持接收远程脚本的调用命令，然后操作其宿主机上的浏览器来到远程执行测试的任务。
+
+这样就可以运行脚本，启动本地浏览器了：
+#-*-coding:utf-8 -*-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium import webdriver
+import time
+
+#指定运行主机与端口号
+driver = webdriver.Remote(
+        command_executor='http://127.0.0.1:4444/wd/hub',
+        desired_capabilities=DesiredCapabilities.CHROME)
+
+driver.get('http://www.youdao.com')
+driver.find_element_by_name('q').send_keys('hello')
+driver.find_element_by_id('qb').click()
+time.sleep(2)
+driver.close()
+
+二、selenium Grid原理
+selenium grid2 已经集成到selenium server 中了（即selenium-server-standalone-XXX.jar 包中）
+所以，我们不用单独下载与安装selenium grid。
+
+selenium-grid的整个结构是由一个hub节点和若干个代理节点组成。hub用来管理各个代理节点的注册和状态信息。并且接受远程客户端代码的请求调用，然后把请求的命令再转发给代理节点来执行。
+使用selenium-grid远程执行测试的代码与直接调用selenium-Server是一样的。（只是环境需要同时启动一个hub和至少一个node）
+
+启动hub和node命令：
+java -jar selenium-server-standalone-x.xx.x.jar -role hub
+java -jar selenium-server-standalone-x.xx.x.jar -role node
+java -jar selenium-server-standalone-x.xx.x.jar -role node -port 5556 (如果想在同一台机器上启动多个node，注意端口分配)
+
+selenium-grid的使用：
+并行测试——当需要同时执行多个测试用例时，可以平行的执行这些用例而缩短测试总耗时；
+兼容性——可根据用例启动测试的类型来相应的把用例转发给符合匹配要求的测试代理。
+
+三、selenium Grid的应用
+（1）对browserName参数化
+根据webdriver提供的Remote的格式：
+driver = webdriver.Remote(
+        command_executor='http://127.0.0.1:4444/wd/hub',
+        desired_capabilities=DesiredCapabilities.CHROME)
+	
+分解为字符串'http://127.0.0.1:4444/wd/hub' ——对字符串进行参数化没什么困难
+DesiredCapabilities.CHROME——打印其值，为{'platform': 'ANY', 'browserName': 'chrome', 'version': '', 'javascriptEnabled': True}
+其本身是个字典：
+'platform': 'ANY' 平台默认可以是任何（window，MAC，android）。
+'browserName': 'chrome' 浏览器名字是chrome 。
+'version': '' 浏览器的版本默认为空。
+'javascriptEnabled': True javascript 启动状态为True
+其他平台/浏览器参数可以参考python webdriver API。
+
+对browserName参数化的例子，通过不同浏览器去执行脚本：
+
+#浏览器数组
+lists=['chrome','internet explorer']
+#通过不同的浏览器执行脚本
+for browser in lists:
+print browser
+driver = webdriver.Remote(
+command_executor='http://127.0.0.1:4444/wd/hub',
+desired_capabilities={'platform': 'ANY',
+'browserName':browser,
+'version': '',
+'javascriptEnabled': True
+})
+后面接测试用例即可 ……
+（2）多节点执行用例
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
