@@ -69,6 +69,8 @@ desired_capabilities={'platform': 'ANY',
 })
 后面接测试用例即可 ……
 （2）多节点执行用例
+操作步骤：
+1、启动本地hub主机
 
 
 

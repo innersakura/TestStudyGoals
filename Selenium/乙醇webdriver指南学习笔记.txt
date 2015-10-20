@@ -1,19 +1,48 @@
-﻿乙醇-webdriver指南学习记录
+﻿乙醇-webdriver指南重点学习记录
 
 学习地址：
 https://github.com/easonhan007/webdriver_guide
 
 00-安装环境
-安装active-python（应该是已集成了常用的包）：
+安装active-python（不用安装python，直接安装即可。已集成了常用的包）：
 http://www.activestate.com/activepython/
 再安装selenium webdriver：
-pip install selenium
+pip install selenium （cmd输入）
+仍需要安装各类浏览器driver：http://www.seleniumhq.org/download/
+将浏览器driver放在环境变量包含的路径下，如c:\Python27
 
 01-打开浏览器
-dr = webdriver.Chrome()
+dr = webdriver.Chrome()  【后续例子中的dr以此为基础】
 
 02-关闭浏览器
 dr = webdriver.Chrome()
 (1)dr.close() ——关闭当前的浏览器窗口，如果运行中打开了多个窗口其他窗口会保留（实验如果只开了一个窗口，浏览器会关闭，但Chromedriver窗口还在）
 (2)dr.quit() ——关闭窗口，并且彻底退出webdriver，释放与driver server之间的连接。（实验Chromedriver窗口也会关闭）
 
+03-浏览器最大化
+dr = webdriver.Chrome()
+dr.maximize_window()
+
+04-设置浏览器大小
+dr.set_window_size(240,320)
+
+05-访问连接
+url = 'http://zc.open.qq.com'
+dr.get(url)
+
+06-打印当前页面的title和url
+title用途：设计用例,访问一个页面然后判断title是否符合预期
+url用途：
+1、重定向测试，访问url后等待页面重定向后获取当前url判断是否符合预期
+2、提交的表单通过验证后会跳转至新页面，未通过验证停留在当前页面。如登录功能的成功与否校验。
+dr.get(url)
+print dr.title
+print dr.current_url
+
+07-前进和后退
+场景较少用，在几个页面间来回跳转，省去get url。
+dr.get(first_url)
+dr.get(second_url)
+
+dr.back()
+dr.forward()
