@@ -17,6 +17,8 @@ http://www.ibm.com/developerworks/cn/linux/l-pyunit/index.html
 https://github.com/easonhan007/webdriver_guide】
 3、python系统学习
 4、基本算法练习
-
+5、前端知识学习：重点JS、HTML+CSSl了解基础使用，能编写页面
+CSS：Bootstrap
+http://www.runoob.com/bootstrap/bootstrap-tutorial.html
 注意点：
 1、不要闭门造车，多百度google原理和其他大公司怎样运用的

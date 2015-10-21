@@ -46,3 +46,86 @@ dr.get(second_url)
 
 dr.back()
 dr.forward()
+
+08-简单的对象定位
+定位对象的目的：
+1、操作对象
+2、获得对象的属性，如获得测试对象的class属性，name属性等
+3、获得对象的text
+4、获得对象的数量
+
+对象对位方法：
+1、id
+2、name
+3、class name
+4、link text
+5、partial link text
+6、tag name
+7、xpath
+8、css selector
+
+例子： //https://github.com/easonhan007/webdriver_guide/blob/master/08/simple_locate.py.md
+# by id
+dr.find_element_by_id('inputEmail').click()
+# by name
+dr.find_element_by_name('password').click()
+# by tagname
+dr.find_element_by_tag_name('form').get_attribute('class')
+# by class_name
+e = dr.find_element_by_class_name('controls')
+dr.execute_script('$(arguments[0]).fadeOut().fadeIn()',e) #由于对应的html文件引用了jQuery，所以可以使用jq的方法
+
+# by link text
+link = dr.find_element_by_link_text('register')
+dr.execute_script('$(arguments[0]).fadeOut().fadeIn()',link)
+sleep(1)
+
+# by partial link text
+link = dr.find_element_by_partial_link_text('reg')
+dr.execute_script('$(arguments[0]).fadeOut().fadeIn()',link)
+
+# by css selector
+div = dr.find_element_by_css_selector('.controls')
+dr.execute_script('$(arguments[0]).fadeOut().fadeIn()',div)
+
+# by xpath
+dr.find_element_by_xpath('/html/body/form/div[3]/div/label/input').click()
+
+
+09-定位一组对象
+应用场景：
+1、批量操作对象，比如将页面所有checkbox都勾上
+2、先获取一组对象，在在这组对象中过滤出需要具体定位的一些对象。比如定位出页面上所有checkbox。然后选择最后一个。
+
+例子：
+1、#选择所有checkbox并全部勾上
+checkboxes = dr.find_element_by_css_selector('input[type=checkbox]')
+for checkbox in checkboxes:
+	checkbox.click()
+2、#选择页面上所有input，然后从中过滤出所有checkbox并勾选
+inputs = dr.find_element_by_tag_name('input')
+for input in inputs:
+	if input.get_attribute('type') == 'checkbox':
+		input.click()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
